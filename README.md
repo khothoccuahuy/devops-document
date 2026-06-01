@@ -28,6 +28,8 @@ The single source of truth for the DevOps team — covering how we work, build, 
 | [20](20_Tools_Integrations.md) | Tools & Integrations |
 | [21](21_Templates.md) | Templates |
 | [22](22_Glossary_References.md) | Glossary & References |
+| [23](23_Cost_Optimization_FinOps.md) | Cost Optimization & FinOps |
+| [24](24_Learning_Resources.md) | Learning Resources & Reference Library |
 
 ## Where to Start
 
@@ -38,3 +40,4 @@ The single source of truth for the DevOps team — covering how we work, build, 
 | Setting up a new project | [Section 5 — Project Initiation Checklist](05_Project_Initiation_Checklist.md) |
 | Looking for SLAs or team contacts | [Section 19 — Meetings & SLAs](19_Meetings_Communications_SLAs.md) |
 | Looking up a tool or integration | [Section 20 — Tools & Integrations](20_Tools_Integrations.md) |
+| Learning a new DevOps skill | [Section 24 — Learning Resources](24_Learning_Resources.md) |

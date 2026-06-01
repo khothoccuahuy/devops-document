@@ -2,7 +2,7 @@
 
 > **Document Status:** 🟡 Draft
 > **Owner:** DevSecOps Engineer
-> **Last Updated:** 2026-04-05
+> **Last Updated:** 2026-05-29
 > **Confluence Space:** `DEVOPS`
 
 ---
@@ -61,8 +61,81 @@
 
 ---
 
-## 9.6 Related Pages
+## 9.6 OIDC-Based Authentication for CI/CD (Keyless)
+
+> **Preferred approach for all CI/CD pipelines accessing cloud resources.**  
+> OIDC eliminates long-lived cloud credentials from CI/CD pipelines entirely.
+
+### How It Works
+
+```
+GitHub Actions Job
+  │
+  ├── Requests OIDC token from GitHub (short-lived JWT)
+  ├── Presents token to AWS STS / GCP / Azure
+  ├── Cloud provider validates token against GitHub's OIDC endpoint
+  └── Returns temporary credentials (valid for job duration only)
+```
+
+No secrets stored. No rotation required. Credentials expire automatically.
+
+### AWS Setup (GitHub Actions → AWS)
+
+```yaml
+# .github/workflows/deploy.yml
+permissions:
+  id-token: write   # Required for OIDC
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/github-actions-deploy
+          aws-region: ap-southeast-1
+```
+
+**Required AWS-side setup:**
+1. Create IAM OIDC Identity Provider: `token.actions.githubusercontent.com`
+2. Create IAM role with trust policy scoped to your repo:
+
+```json
+{
+  "Condition": {
+    "StringLike": {
+      "token.actions.githubusercontent.com:sub": "repo:your-org/your-repo:*"
+    }
+  }
+}
+```
+
+> ⚠️ Always scope the trust policy to a specific repo and branch — never use wildcard `*` org-wide.
+
+### When to Use OIDC vs Stored Secrets
+
+| Scenario | Recommended |
+|---|---|
+| GitHub Actions → AWS / GCP / Azure | ✅ OIDC (keyless) |
+| Third-party API keys (Datadog, Slack, etc.) | GitHub Actions Secrets |
+| Cross-account AWS access | ✅ IAM role chaining via OIDC |
+| Self-hosted runners in private network | Vault agent or IAM Instance Profile |
+
+### OIDC for Other Providers
+
+| CI Platform | Cloud | Reference |
+|---|---|---|
+| GitHub Actions | AWS | `aws-actions/configure-aws-credentials` |
+| GitHub Actions | GCP | `google-github-actions/auth` |
+| GitHub Actions | Azure | `azure/login` with OIDC |
+| GitLab CI | AWS | GitLab OIDC + AWS STS |
+
+---
+
+## 9.7 Related Pages
 
 - → Section 15: Security & Compliance
 - → Section 12: Incident Response & Postmortem
 - → Section 17: Change Management & Approvals
+- → Section 7: CI/CD Standards & Pipelines

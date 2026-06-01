@@ -12,6 +12,21 @@
 | Term | Definition |
 |---|---|
 | **ADR** | Architecture Decision Record — documents a key design or technical decision |
+| **Blue/Green Deployment** | Deployment strategy using two identical environments; traffic switches atomically between them |
+| **Canary Deployment** | Gradual traffic shift to new version while monitoring metrics before full rollout |
+| **Cosign** | Tool for signing and verifying container images as part of the Sigstore project |
+| **CUR** | Cost and Usage Report — detailed AWS billing data for cost analysis |
+| **Error Budget** | Allowed failure margin = `1 - SLO`. Exhausting it triggers a reliability freeze |
+| **FinOps** | Cloud financial management practice — bringing financial accountability to cloud spending |
+| **Infracost** | Tool that estimates cloud cost changes from Terraform diffs, shown in PRs |
+| **Karpenter** | AWS-native Kubernetes node autoscaler that provisions right-sized nodes (including Spot) |
+| **OIDC** | OpenID Connect — standard used for keyless, short-lived credential exchange between CI and cloud |
+| **SBOM** | Software Bill of Materials — machine-readable inventory of all components in a software artifact |
+| **Sigstore** | Open-source project providing free tools for signing software artifacts (Cosign, Fulcio, Rekor) |
+| **SLSA** | Supply-chain Levels for Software Artifacts — security framework for artifact integrity |
+| **SLI** | Service Level Indicator — specific metric measuring service behavior (e.g. availability %) |
+| **SLO** | Service Level Objective — internal target value for an SLI (e.g. 99.9% availability) |
+| **Spot Instance** | AWS EC2 instance using spare capacity at up to 90% discount; can be reclaimed with 2-min notice |
 | **ArgoCD** | GitOps continuous delivery tool for Kubernetes |
 | **CVSS** | Common Vulnerability Scoring System — standard for rating security vulnerabilities |
 | **DAST** | Dynamic Application Security Testing — testing a running application for vulnerabilities |
@@ -100,10 +115,16 @@
 | Date | Section Updated | Change Summary | Updated By |
 |---|---|---|---|
 | 2026-04-05 | All sections | Initial handbook created | DevOps Lead |
+| 2026-05-29 | Section 8 | Added Deployment Strategies (Blue/Green, Canary, Rolling) | DevOps Lead |
+| 2026-05-29 | Section 9 | Added OIDC-based CI/CD authentication (keyless) | DevOps Lead |
+| 2026-05-29 | Section 10 | Added SLI/SLO/Error Budget guide with Prometheus examples | DevOps Lead |
+| 2026-05-29 | Section 15 | Added Supply Chain Security (SBOM, Cosign, SLSA) | DevOps Lead |
+| 2026-05-29 | Section 23 | New section: Cost Optimization & FinOps | DevOps Lead |
+| 2026-05-29 | Section 24 | New section: Learning Resources & Reference Library | DevOps Lead |
 
 ---
 
-_✅ End of DevOps Team Handbook — All 22 Sections Complete_
+_✅ End of DevOps Team Handbook — All 24 Sections Complete_
 
 _This document is a living handbook. Keep it updated, keep it useful._
 _For questions or contributions, contact the DevOps Lead or raise a Jira ticket tagged `[DOC]`_
